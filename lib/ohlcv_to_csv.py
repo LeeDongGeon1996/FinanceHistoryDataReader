@@ -49,7 +49,7 @@ def ohlcv_to_csv(symbol, start=None, end=None, per=False, pbr=False, roe=False, 
 
     # Save to csv
     f_name = symbol + "_" + start + ("_" + end if end else "") + ".csv"
-    qoute_list.to_csv(f_name)
+    qoute_list.to_csv(f_name, float_format='%.2f')
 
 def _handleKeyError(e):
     print("Not enough data for the year: " + str(e))
