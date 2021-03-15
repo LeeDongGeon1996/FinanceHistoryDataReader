@@ -11,3 +11,6 @@ indicators_to_csv("MSFT", "2021-02-14")
 indicators_to_csv("AAPL", "2021-03-01", "2021-03-09")
 ```
 
+# About the DLL
+`Skender.Stock.Indicators.dll` is a compiled library package from [DaveSkender/Stock.Indicators](https://github.com/DaveSkender/Stock.Indicators).
+It was written in C#, but it complies with the [Common Language Specification (CLS)](https://docs.microsoft.com/en-us/dotnet/standard/common-type-system), so it could be used as a Python module.
