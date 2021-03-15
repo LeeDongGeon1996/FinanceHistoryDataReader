@@ -30,3 +30,6 @@ csv.ohlcv_to_csv("NFLX", "2021-01-01", "2021-01-29", print=True)
 ## About the DLL
 `Skender.Stock.Indicators.dll` is a compiled library package from [DaveSkender/Stock.Indicators](https://github.com/DaveSkender/Stock.Indicators).
 It was written in C#, but it complies with the [Common Language Specification (CLS)](https://docs.microsoft.com/en-us/dotnet/standard/common-type-system), so it could be used as a Python module.
+
+## References
+ * [jimmysitu/morningstar.com API.md](https://gist.github.com/jimmysitu/161d2effc0d3b17e401fdafa6e5b615d)
