@@ -6,25 +6,53 @@ pip install finance-datareader, pythonnet, beautifulsoup4, requests, pandas
 ```
 
 ## Usage
-You can simply save historical price quotes to csv file using `indicators_to_csv`
+You can simply fetch historical price quotes using `get_history`
 ```
+import FinanceHistoryDataReader.QouteHistory as qh
+
 # Amazon(AMZN), Whole period
-indicators_to_csv('AMZN')
+qh.get_history('AMZN')
 
 # Microsoft(MSFT) 2021-02-14 ~ Now
-indicators_to_csv("MSFT", "2021-02-14")
+qh.get_history("MSFT", "2021-02-14")
 
 # Apple(AAPL) 2021-03-01 ~ 2021-03-09
-indicators_to_csv("AAPL", "2021-03-01", "2021-03-09")
+qh.get_history("AAPL", "2021-03-01", "2021-03-09")
 
 # With PER, PBR, ROE, Apple(AAPL) 2019-01-01 ~ Now
-csv.ohlcv_to_csv("AAPL", "2019", per=True, pbr=True, roe=True)
+qh.get_history("AAPL", "2019", per=True, pbr=True, roe=True)
 
 # Reorder columns, Facebook(FB) 2019-01-01 ~ Now
-csv.ohlcv_to_csv("FB", "2019-01-01", per=True, order=['per', 'Open', 'High', 'Low', 'Close', 'Volume'])
+qh.get_history("FB", "2019-01-01", per=True, order=['per', 'Open', 'High', 'Low', 'Close', 'Volume'])
 
 # Print dataframe, Netflix(NFLX) 2021-01-01 ~ 2021-01-29
-csv.ohlcv_to_csv("NFLX", "2021-01-01", "2021-01-29", print=True)
+qh.get_history("NFLX", "2021-01-01", "2021-01-29", print=True)
+```
+
+Also, you can add more indicators like SMA, WMA as columns using `add_column_by_day` or `add_column_by_year`
+```
+import FinanceHistoryDataReader as fdr
+
+apple_history = fdr.QouteHistory.get_history("AAPL", "2021", per=True, pbr=True)
+nasdaq_history = fdr.QouteHistory.get_history("IXIC", "2020")
+
+nasdaq_sma5 = fdr.Indicator.get_SMA(nasdaq_history, 5)
+nasdaq_sma20 = fdr.Indicator.get_SMA(nasdaq_history, 20)
+
+fdr.QouteHistory.add_column_by_day(apple_history, "nasdaq_ma5", nasdaq_sma5)
+fdr.QouteHistory.add_column_by_day(apple_history, "nasdaq_ma20", nasdaq_sma20)
+
+# example:
+#               Open    High     Low   Close       Volume   per   pbr  nasdaq_ma5  nasdaq_ma20
+# Date
+# 2021-01-04  133.52  133.61  126.76  129.41  143300000.0  33.6  31.6   12841.274   12661.7955
+# 2021-01-05  128.89  131.74  128.43  131.01   97670000.0  33.6  31.6   12825.182   12679.5320
+# 2021-01-06  127.72  131.05  126.38  126.60  155090000.0  33.6  31.6   12803.296   12690.5740
+```
+
+If you want to save the data as a csv file, use `save_as_csv`
+```
+qh.save_as_csv(apple_history, "AAPL_2021_with_nasdaq_ma.csv")
 ```
 
 ## About the DLL

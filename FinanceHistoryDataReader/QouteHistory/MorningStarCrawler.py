@@ -32,13 +32,13 @@ class MorningStarCrawler:
         # P/E ratio
         per_list = soup.select("#valuation_history_table > tbody > tr:nth-child(2) > td")
         per_list = list(map(lambda x : x.text, per_list))
-        per_dict = { self.CUR-len(per_list)+i+1 : per for i, per in enumerate(per_list) }
+        per_dict = { str(self.CUR-len(per_list)+i+1) : per for i, per in enumerate(per_list) }
         print(per_dict)
 
         # P/B ratio
         pbr_list = soup.select("#valuation_history_table > tbody > tr:nth-child(5) > td")
         pbr_list = list(map(lambda x : x.text, pbr_list))
-        pbr_dict = { self.CUR-len(pbr_list)+i+1 : pbr for i, pbr in enumerate(pbr_list) }
+        pbr_dict = { str(self.CUR-len(pbr_list)+i+1) : pbr for i, pbr in enumerate(pbr_list) }
         print(pbr_dict)
 
         roe_list = []
@@ -48,7 +48,7 @@ class MorningStarCrawler:
             else:
                 roe_list.append('—')
 
-        roe_dict = { self.CUR-len(roe_list)+i+1 : roe for i, roe in enumerate(roe_list) }
+        roe_dict = { str(self.CUR-len(roe_list)+i+1) : roe for i, roe in enumerate(roe_list) }
 
         self.per = per_dict
         self.pbr = pbr_dict
