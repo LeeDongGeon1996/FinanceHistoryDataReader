@@ -29,8 +29,12 @@ qh.get_history("FB", "2019-01-01", per=True, order=['per', 'Open', 'High', 'Low'
 qh.get_history("NFLX", "2021-01-01", "2021-01-29", print=True)
 ```
 
-Also, you can add more indicators like SMA, WMA as columns using `add_column_by_day` or `add_column_by_year`
+Also, you can add more indicators like SMA, WMA as columns using `add_column_by_day` or `add_column_by_year`.
+To calulate other indicators like SMA, import the dll, `Skender.Stock.Indicators`
 ```
+import clr
+clr.AddReference(r'dll/Skender.Stock.Indicators')
+
 import FinanceHistoryDataReader as fdr
 
 apple_history = fdr.QouteHistory.get_history("AAPL", "2021", per=True, pbr=True)
