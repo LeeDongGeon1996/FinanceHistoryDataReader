@@ -21,11 +21,11 @@ class MorningStarCrawler:
 
         self.symbol = symbol
         self.market = market
-        url = "http://financials.morningstar.com/valuate/valuation-history.action?&t=<MARKET>:<SYMBOL>&type=price-earnings"
+        self.url = "http://financials.morningstar.com/valuate/valuation-history.action?&t={market}:{symbol}&type=price-earnings"\
+            .format(market=market, symbol=symbol)
         # url = "http://financials.morningstar.com/valuate/valuation-history.action?&t=<MARKET>:<SYMBOL>&type=price-book"
         # url = "http://financials.morningstar.com/valuate/valuation-history.action?&t=<MARKET>:<SYMBOL>&type=price-sales"
-        self.url = url.replace("<MARKET>", market).replace("<SYMBOL>", symbol)
-
+        
         html= requests.get(self.url).text
         soup = BeautifulSoup(html, 'html.parser')
         
