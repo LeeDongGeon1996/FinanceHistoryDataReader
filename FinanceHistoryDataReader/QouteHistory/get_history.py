@@ -57,7 +57,7 @@ def add_column_by_day(data_frame, col_name, col_as_dict):
     return data_frame
 
 def save_as_csv(data_fram, name):
-    data_fram.to_csv(name if str(name).endswith('.csv') else name + '.csv', float_format='%.2f')
+    data_fram.to_csv(name if str(name).endswith('.csv') else name + '.csv', float_format='%.4f')
 
 def _handleKeyError(e):
     print("Not enough data for the year: " + str(e))
