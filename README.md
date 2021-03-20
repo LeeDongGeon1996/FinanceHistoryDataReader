@@ -6,8 +6,8 @@ pip install finance-datareader, pythonnet, beautifulsoup4, requests, pandas
 ```
 
 ## Usage
-You can simply fetch historical price quotes using `get_history`
-```
+You can simply fetch historical price quotes using `get_history`.
+```python
 import FinanceHistoryDataReader.QouteHistory as qh
 
 # Amazon(AMZN), Whole period
@@ -30,8 +30,8 @@ qh.get_history("NFLX", "2021-01-01", "2021-01-29", print=True)
 ```
 
 Also, you can add more indicators like SMA, WMA as columns using `add_column_by_day` or `add_column_by_year`.
-To calulate other indicators like SMA, import the dll, `Skender.Stock.Indicators`
-```
+To calulate other indicators like SMA, import the dll, `Skender.Stock.Indicators`.
+```python
 import clr
 clr.AddReference(r'dll/Skender.Stock.Indicators')
 
@@ -54,8 +54,8 @@ fdr.QouteHistory.add_column_by_day(apple_history, "nasdaq_ma20", nasdaq_sma20)
 # 2021-01-06  127.72  131.05  126.38  126.60  155090000.0  33.6  31.6   12803.296   12690.5740
 ```
 
-If you want to save the data as a csv file, use `save_as_csv`
-```
+If you want to save the data as a csv file, use `save_as_csv`.
+```python
 qh.save_as_csv(apple_history, "AAPL_2021_with_nasdaq_ma.csv")
 ```
 
