@@ -1,3 +1,4 @@
+import math
 import pandas as pd
 from .fetch_ohlcv import fetch_ohlcv
 from .MorningStarCrawler import MorningStarCrawler
@@ -50,11 +51,28 @@ def add_column_by_year(data_frame, col_name, col_as_dict):
 
 def add_column_by_day(data_frame, col_name, col_as_dict):
     try:
-        data_frame[col_name] = data_frame.apply(lambda x: col_as_dict.get(str(x.name)[:10]), axis=1)
+        data_frame[col_name] = data_frame.apply(lambda x: col_as_dict.get(str(x.name)[:10]) or None, axis=1)
     except KeyError as e:
         _handleKeyError(e)
 
     return data_frame
+
+def fill_nan(data_frame, col_name):
+    target_col = data_frame[col_name]
+    if target_col is not None:
+        default_value = None
+        for idx, val in target_col.items():
+            print(str(val))
+            print(str(type(val)))
+            if math.isnan(val):
+                print("target: " + str(target_col[idx]))
+                target_col[idx] = default_value
+            else:
+                default_value = val
+        
+    else:
+        raise KeyError()
+
 
 def save_as_csv(data_fram, name):
     data_fram.to_csv(name if str(name).endswith('.csv') else name + '.csv', float_format='%.4f')
