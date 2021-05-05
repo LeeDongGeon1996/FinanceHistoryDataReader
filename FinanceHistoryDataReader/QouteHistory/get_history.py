@@ -62,10 +62,7 @@ def fill_nan(data_frame, col_name):
     if target_col is not None:
         default_value = None
         for idx, val in target_col.items():
-            print(str(val))
-            print(str(type(val)))
             if math.isnan(val):
-                print("target: " + str(target_col[idx]))
                 target_col[idx] = default_value
             else:
                 default_value = val
