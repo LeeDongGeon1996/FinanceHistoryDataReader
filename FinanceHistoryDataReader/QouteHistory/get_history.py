@@ -5,7 +5,7 @@ from .MorningStarCrawler import MorningStarCrawler
 
 printer = print
 
-def get_history(symbol, start=None, end=None, per=False, pbr=False, roe=False, print=False, order=None):
+def get_history(symbol, start=None, end=None, market='XNAS', per=False, pbr=False, roe=False, print=False, order=None):
 
     msc = None
 
@@ -14,21 +14,21 @@ def get_history(symbol, start=None, end=None, per=False, pbr=False, roe=False, p
 
     if per:
         if not msc:
-            msc = MorningStarCrawler(symbol, "XNAS")
+            msc = MorningStarCrawler(symbol, market)
 
         per = msc.get_per()
         add_column_by_year(qoute_list, 'per', per)
             
     if pbr:
         if not msc:
-            msc = MorningStarCrawler(symbol, "XNAS")
+            msc = MorningStarCrawler(symbol, market)
 
         pbr = msc.get_pbr()
         add_column_by_year(qoute_list, 'pbr', pbr)
 
     if roe:
         if not msc:
-            msc = MorningStarCrawler(symbol, "XNAS")
+            msc = MorningStarCrawler(symbol, market)
         
         roe = msc.get_roe()
         add_column_by_year(qoute_list, 'roe', roe)
