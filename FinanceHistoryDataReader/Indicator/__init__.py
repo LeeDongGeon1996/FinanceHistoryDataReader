@@ -14,5 +14,12 @@ from .Indicator import (
     get_alligator_jaw,
     get_alligator_lips,
     get_alligator_teeth,
-    
+    get_bollinger_bands_lower,
+    get_bollinger_bands_upper,
+    get_donchian,
+    get_fcb_lower,
+    get_fcb_upper,
+    get_std_dev_channels,
+
+
 )

@@ -102,6 +102,41 @@ def get_alligator_lips(history):
 
     return _dict
 
+def get_bollinger_bands_upper(history, lookbackPeriod, standardDeviations):
+    _list = Indicator.GetBollingerBands[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod, CsDecimal.Parse(str(standardDeviations)))
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.UpperBand)) if i.UpperBand else None) for i in _list }
+
+    return _dict
+
+def get_bollinger_bands_lower(history, lookbackPeriod, standardDeviations):
+    _list = Indicator.GetBollingerBands[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod, CsDecimal.Parse(str(standardDeviations)))
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.LowerBand)) if i.LowerBand else None) for i in _list }
+
+    return _dict
+
+def get_donchian(history, lookbackPeriod):
+    _list = Indicator.GetDonchian[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod)
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.Centerline)) if i.Centerline else None) for i in _list }
+
+    return _dict
+
+def get_fcb_upper(history, lookbackPeriod):
+    _list = Indicator.GetFcb[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod)
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.UpperBand)) if i.UpperBand else None) for i in _list }
+
+    return _dict
+
+def get_fcb_lower(history, lookbackPeriod):
+    _list = Indicator.GetFcb[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod)
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.LowerBand)) if i.LowerBand else None) for i in _list }
+
+    return _dict
+
+def get_std_dev_channels(history, lookbackPeriod, standardDeviations):
+    _list = Indicator.GetStdDevChannels[Qoute](_convert_df_to_csharp_list(history), lookbackPeriod, CsDecimal.Parse(str(standardDeviations)))
+    _dict = { _convert_csharp_datetime(i.Date) : (float(str(i.Centerline)) if i.Centerline else None) for i in _list }
+
+    return _dict
 
 
 
