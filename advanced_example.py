@@ -6,13 +6,13 @@ import FinanceHistoryDataReader.Indicator as Indicator
 import FinanceHistoryDataReader.processing as processing
 
 ##############################
-TICKER = "XOM"
+TICKER = "RDS.A"
 
 MARKET = "XNYS"
 MARKET_NAME = "nyse"
 MARKET_TICKER = "IXIC"
 
-YEAR_FROM = "2020"
+YEAR_FROM = "2010"
 
 WTI_ENABLE = True
 NLP_ENABLE = False
@@ -22,6 +22,9 @@ feature_list = []
 # Fetching
 print("Fetching OHLCV and other related price data...")
 price_history = qh.get_history(TICKER, YEAR_FROM, market=MARKET, per=True, pbr=True)
+qh.fill_nan(price_history, "per")
+qh.fill_nan(price_history, "pbr")
+
 
 # Technical Indicators
 qh.add_column_by_day(price_history, "aroon_5", Indicator.get_AROON(price_history, 5))
