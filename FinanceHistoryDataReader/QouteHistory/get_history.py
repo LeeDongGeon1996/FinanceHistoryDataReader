@@ -62,11 +62,13 @@ def fill_nan(data_frame, col_name):
     if target_col is not None:
         default_value = None
         for idx, val in target_col.items():
-            if math.isnan(val):
+            try:
+                if math.isnan(float(val)):
+                    target_col[idx] = default_value
+                else:
+                    default_value = val
+            except:
                 target_col[idx] = default_value
-            else:
-                default_value = val
-        
     else:
         raise KeyError()
 
