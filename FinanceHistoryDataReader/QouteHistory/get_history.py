@@ -10,7 +10,7 @@ def get_history(symbol, start=None, end=None, market='XNAS', per=False, pbr=Fals
     msc = None
 
     # Fetch OHLCV data
-    qoute_list = fetch_ohlcv(symbol, start, end)
+    qoute_list = fetch_ohlcv(symbol.replace('.',''), start, end)
 
     if per:
         if not msc:
