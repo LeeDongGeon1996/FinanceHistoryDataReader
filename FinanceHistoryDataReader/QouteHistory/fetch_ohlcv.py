@@ -13,5 +13,7 @@ def fetch_ohlcv(symbol, start=None, end=None, exchange=None, data_source=None, s
     if show_change:
         cols.append('Change')
     
-    df = df[cols]    
+    df = df[cols]
+    df.columns = map(lambda col: col.lower(), cols)
+    df.index.names = ['date']
     return df
