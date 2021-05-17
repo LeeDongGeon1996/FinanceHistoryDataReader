@@ -19,14 +19,11 @@ qh.add_column_by_day(exxon_history, "donchian_5", Indicator.get_donchian(exxon_h
 qh.add_column_by_day(exxon_history, "fcb_upper_5", Indicator.get_fcb_upper(exxon_history, 5))
 qh.add_column_by_day(exxon_history, "fcb_lower_5", Indicator.get_fcb_lower(exxon_history, 5))
 
-
-
 qh.add_column_by_day(exxon_history, "gator_upper", Indicator.get_gator_upper(exxon_history))
 qh.add_column_by_day(exxon_history, "gator_lower", Indicator.get_gator_lower(exxon_history))
 qh.add_column_by_day(exxon_history, "alligator_jaw", Indicator.get_alligator_jaw(exxon_history))
 qh.add_column_by_day(exxon_history, "alligator_teeth", Indicator.get_alligator_teeth(exxon_history))
 qh.add_column_by_day(exxon_history, "alligator_lips", Indicator.get_alligator_lips(exxon_history))
-
 
 qh.add_column_by_day(exxon_history, "ichimoku_9_26_52", Indicator.get_ichimoku(exxon_history, 9, 26, 52))
 qh.add_column_by_day(exxon_history, "macd_12_26_9", Indicator.get_macd(exxon_history, 12, 26, 9))
