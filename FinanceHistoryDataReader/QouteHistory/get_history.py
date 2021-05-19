@@ -1,5 +1,7 @@
 import math
 import pandas as pd
+from queue import Queue
+import numpy as np
 from .fetch_ohlcv import fetch_ohlcv
 from .MorningStarCrawler import MorningStarCrawler
 
@@ -57,18 +59,63 @@ def add_column_by_day(data_frame, col_name, col_as_dict):
 
     return data_frame
 
-def fill_nan(data_frame, col_name):
+def fill_nan(data_frame, col_name, decay_rate=False):
     target_col = data_frame[col_name]
     if target_col is not None:
-        default_value = None
-        for idx, val in target_col.items():
-            try:
-                if math.isnan(float(val)):
+        if not decay_rate:
+            default_value = None
+            for idx, val in target_col.items():
+                try:
+                    if math.isnan(float(val)):
+                        target_col[idx] = default_value
+                    else:
+                        default_value = val
+                except:
                     target_col[idx] = default_value
-                else:
-                    default_value = val
-            except:
-                target_col[idx] = default_value
+        else:
+            queue = Queue()
+            default_value = None
+            for idx, val in target_col.items():
+                try:
+                    if math.isnan(float(val)):
+                        _sum = 0
+                        
+                        _reversed = list(queue.queue)
+                        _reversed.reverse()
+                        for i, previous in enumerate(_reversed): 
+                            _sum += ((1 - decay_rate * i) * previous)
+                        
+                        if len(queue.queue) != 0:
+                            default_value = _sum/len(queue.queue)
+                        else:
+                            default_value = None
+
+                        target_col[idx] = default_value
+                        if default_value is not None:
+                            if len(queue.queue) >= 10:
+                                queue.get()
+                            queue.put(default_value)
+
+                    else:
+                        default_value = val
+                        
+                        if len(queue.queue) >= 10:
+                            queue.get()
+                        queue.put(default_value)
+
+                        if len(queue.queue) > 1:
+                            _reversed = list(queue.queue)
+                            _reversed.reverse()
+                            cur_val = _reversed[0]
+                            prev_val = _reversed[1]
+                            queue = Queue()
+                            queue.put(prev_val)
+                            for i in range(0,9):
+                                queue.put(cur_val)
+
+                except Exception as e:
+                    target_col[idx] = default_value
+
     else:
         raise KeyError()
 

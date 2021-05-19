@@ -6,7 +6,7 @@ import FinanceHistoryDataReader.Indicator as Indicator
 import FinanceHistoryDataReader.processing as processing
 
 ##############################
-TICKER = "RDS.A"
+TICKER = "XOM"
 
 MARKET = "XNYS"
 MARKET_NAME = "nyse"
@@ -15,7 +15,9 @@ MARKET_TICKER = "IXIC"
 YEAR_FROM = "2010"
 
 WTI_ENABLE = True
-NLP_ENABLE = False
+NLP_ENABLE = True
+
+NAN_FILLER_DECAY = 0.02
 ##############################
 feature_list = []
 
@@ -127,20 +129,20 @@ for feature in feature_list:
 if NLP_ENABLE:
     print("Starting NLP...")
     from calculate_sentiment_score.calculate_sent_score import VocabDictionary
-    vocab_dic = VocabDictionary("VADER")
+    vocab_dic = VocabDictionary("VADER", TICKER)
     score = vocab_dic.sentiment_analysis()
 
     qh.add_column_by_day(price_history, "nlp_pos", score['pos'])
-    qh.add_column_by_day(price_history, "nlp_neg", score['neu'])
-    qh.add_column_by_day(price_history, "nlp_neu", score['neg'])
+    qh.add_column_by_day(price_history, "nlp_neg", score['neg'])
+    qh.add_column_by_day(price_history, "nlp_neu", score['neu'])
     qh.add_column_by_day(price_history, "nlp_compound", score['compound'])
     print("NLP finished.")
 
     print("Filling NAN...")
-    qh.fill_nan(price_history, "nlp_pos")
-    qh.fill_nan(price_history, "nlp_neg")
-    qh.fill_nan(price_history, "nlp_neu")
-    qh.fill_nan(price_history, "nlp_compound")
+    qh.fill_nan(price_history, "nlp_pos", decay_rate=NAN_FILLER_DECAY)
+    qh.fill_nan(price_history, "nlp_neg", decay_rate=NAN_FILLER_DECAY)
+    qh.fill_nan(price_history, "nlp_neu", decay_rate=NAN_FILLER_DECAY)
+    qh.fill_nan(price_history, "nlp_compound", decay_rate=NAN_FILLER_DECAY)
 
 
 # Save
