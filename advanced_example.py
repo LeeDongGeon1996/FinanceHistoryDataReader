@@ -6,7 +6,7 @@ import FinanceHistoryDataReader.Indicator as Indicator
 import FinanceHistoryDataReader.processing as processing
 
 ##############################
-TICKER = "XOM"
+TICKER = "CVX"
 
 MARKET = "XNYS"
 MARKET_NAME = "nyse"
